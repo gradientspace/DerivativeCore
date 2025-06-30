@@ -38,8 +38,12 @@ namespace Gradientspace.NodeGraph
         {
             ActiveOutput = activeOutput;
         }
+        public static IGraphOutput? GetCurrentOutput()
+        {
+            return ActiveOutput;
+        }
 
-        public static void Clear()
+	    public static void Clear()
         {
             if (ActiveOutput != null)
             {
