@@ -44,10 +44,17 @@ namespace Gradientspace.NodeGraph
             Variant = variant;
         }
 
-
         public string GetNodeTypeUIName()
         {
             return UIName;
         }
-    }
+
+		public override string ToString()
+		{
+            if (Variant.Length > 0)
+				return $"{UIName} ({ClassType.ToString()}//{Variant})";
+			else
+                return $"{UIName} ({ClassType.ToString()})";
+		}
+	}
 }

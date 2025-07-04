@@ -116,6 +116,19 @@ namespace Gradientspace.NodeGraph
         }
 
 
+		public override readonly string ToString()
+		{
+            if (DataFormat == EGraphDataFormat.CSharp)
+                return $"{DataType} (C#)";
+            else if (DataFormat == EGraphDataFormat.Python)
+                return (ExtendedType != null) ? $"{ExtendedType.ToString()} (python)" : $"{DataType} (python)";
+			else
+                return (ExtendedType != null) ?
+                    $"{DataType}:{ExtendedType.ToString()} ({DataFormat})" :
+                    $"{DataType}: ({DataFormat})";
+		}
+
+
 		//readonly public override bool Equals(object? obj)
 		//{
 		//    if (obj == null || GetType() != obj.GetType())
