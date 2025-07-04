@@ -25,7 +25,7 @@ namespace Gradientspace.NodeGraph
 		//
 
 		// this throws if Type is not a valid type to add to the graph...
-		INodeInfo CreateNewNodeOfType(NodeType nodeType);
+		INodeInfo CreateNewNodeOfType(NodeType nodeType, int UseSpecifiedNodeIdentifier = -1);
 
 		bool RemoveNode(int NodeIdentifier);
 
