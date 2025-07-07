@@ -67,7 +67,12 @@ namespace Gradientspace.NodeGraph
 		}
 
 
-        public static void AppendError(string Line)
+		public static void AppendLog(string Line)
+		{
+			AppendLine(Line, EGraphOutputType.Logging);
+		}
+
+		public static void AppendError(string Line)
         {
             AppendLine(Line, EGraphOutputType.GraphError);
         }

@@ -42,8 +42,28 @@ namespace Gradientspace.NodeGraph
         }
     }
 
-    //! ClassHierarchyNode is for node classes that should not appear as directly-constructible node types
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
+	/**
+     * [GraphNodeNamespace("LibraryName")]
+     * 
+     * Use this tag on an INode-derived class to include it in the specified Namespace in the UI/etc
+     */
+	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
+	public class GraphNodeNamespace : Attribute
+	{
+		public string Namespace { get; init; } = "";
+
+		public GraphNodeNamespace()
+		{
+		}
+		public GraphNodeNamespace(string name)
+		{
+			Namespace = name;
+		}
+	}
+
+
+	//! ClassHierarchyNode is for node classes that should not appear as directly-constructible node types
+	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class ClassHierarchyNode : Attribute
     {
     }
