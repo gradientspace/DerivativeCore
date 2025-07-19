@@ -9,7 +9,10 @@ namespace Gradientspace.NodeGraph
         
         //! A Node-Constant Input is one in which no input wire can be connected, ie it is constant during graph evaluation.
         //! This can be used to implement Node parameters via the node-input system, which is mostly a convenience
-        IsNodeConstant = 1
+        IsNodeConstant = 1,
+
+        //! hint to GUIs/editors that this pin should not be shown
+        Hidden = 1<<1
     }
 
 
@@ -47,6 +50,7 @@ namespace Gradientspace.NodeGraph
 
         public GraphDataType DataType { get { return Input.GetDataType(); } }
         public bool IsNodeConstant { get { return (Input.GetInputFlags() & ENodeInputFlags.IsNodeConstant) != 0; } }
+        public bool IsHidden { get { return (Input.GetInputFlags() & ENodeInputFlags.Hidden) != 0; } }
     }
 
     //! named wrapper around an INodeOutput
