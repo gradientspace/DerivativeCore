@@ -12,7 +12,10 @@ namespace Gradientspace.NodeGraph
         IsNodeConstant = 1,
 
         //! hint to GUIs/editors that this pin should not be shown
-        Hidden = 1<<1
+        Hidden = 1<<1,
+
+        //! hint to GUIs/editors that this pin's label should not be shown  (eg for constant values)
+        HiddenLabel = 1<<2
     }
 
 
@@ -67,7 +70,10 @@ namespace Gradientspace.NodeGraph
     //! minimal Node interface
     public interface INode
     {
+        //! name of this node
         string GetNodeName();
+        //! (optional) namespace for this node
+        string? GetNodeNamespace() { return null; }
 
         IEnumerable<INodeInputInfo> EnumerateInputs();
         IEnumerable<INodeOutputInfo> EnumerateOutputs();
