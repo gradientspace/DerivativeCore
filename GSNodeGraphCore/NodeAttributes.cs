@@ -4,12 +4,11 @@
 namespace Gradientspace.NodeGraph
 {
 
-    /**
-     * [GraphNodeUIName("NodeName")]
-     * 
-     * This tag can be used on graph node classes (ie subclasses of NodeBase) to set
-     * the display name of the node
-     */
+    /// <summary>
+    /// [GraphNodeUIName("NodeName")]
+    /// 
+    /// This tag can be used on INode-derived classes to set the display name of the node
+    /// </summary> 
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class GraphNodeUIName : Attribute
     {
@@ -22,33 +21,12 @@ namespace Gradientspace.NodeGraph
     }
 
 
-
-    /**
-     * [GraphNodeFunctionLibrary("LibraryName")]
-     * 
-     * Classes with this attribute will be inspected to see if they contain any NodeFunction's to expose as nodes.
-     * LibraryName will be used as the path to the nodes. If it is not defined, 
-     */
+    /// <summary>
+    /// [GraphNodeNamespace("LibraryName")]
+    /// 
+    /// Use this tag on an INode-derived class to include it in the specified Namespace in the UI/etc
+    /// </summary> 
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-    public class GraphNodeFunctionLibrary : Attribute
-    {
-        public string LibraryName { get; init; } = "";
-
-        public GraphNodeFunctionLibrary()
-        {
-        }
-        public GraphNodeFunctionLibrary(string name)
-        {
-            LibraryName = name;
-        }
-    }
-
-	/**
-     * [GraphNodeNamespace("LibraryName")]
-     * 
-     * Use this tag on an INode-derived class to include it in the specified Namespace in the UI/etc
-     */
-	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
 	public class GraphNodeNamespace : Attribute
 	{
 		public string Namespace { get; init; } = "";
@@ -63,30 +41,58 @@ namespace Gradientspace.NodeGraph
 	}
 
 
-	//! ClassHierarchyNode is for node classes that should not appear as directly-constructible node types
+    /// <summary>
+    /// ClassHierarchyNode is for INode-derived classes that should not appear as directly-constructible node types
+    /// </summary>
 	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class ClassHierarchyNode : Attribute
     {
     }
 
-    //! SystemNode is for node classes that can exist in a graph but are special in some way and so cannot be directly created
+    /// <summary>
+    /// SystemNode is for INode-derived classes that can exist in a graph but are special in some way and so cannot be directly created
+    /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class SystemNode : Attribute
     {
     }
 
 
-    /**
-     * [NodeFunction]
-     * 
-     * this attribute/tag indicates that a static function of a GraphNodeFunctionLibrary should
-     * be exposed as a graph node
-     */
+
+
+    /// <summary>
+    /// [GraphNodeFunctionLibrary("LibraryName")]
+    /// 
+    /// Classes with this attribute will be inspected to see if they contain any NodeFunction's to expose as nodes.
+    /// LibraryName will be used as the path to the nodes. 
+    /// </summary> 
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
+    public class GraphNodeFunctionLibrary : Attribute
+    {
+        public string LibraryName { get; init; } = "";
+
+        public GraphNodeFunctionLibrary(string name)
+        {
+            LibraryName = name;
+        }
+    }
+
+    /// <summary>
+    /// [NodeFunction]
+    /// 
+    /// this attribute/tag indicates that a static function of a GraphNodeFunctionLibrary should
+    /// be exposed as a graph node
+    /// </summary> 
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public class NodeFunction : Attribute
     {
     }
 
+    /// <summary>
+    /// [NodeReturnValue(DisplayName = "Mesh")]
+    /// 
+    /// Use to configure the name of the return value in NodeFunctions
+    /// </summary> 
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public class NodeReturnValue : Attribute
     {
@@ -97,7 +103,11 @@ namespace Gradientspace.NodeGraph
         }
     }
 
-
+    /// <summary>
+    /// [NodeParameter ...]
+    /// 
+    /// Used to configure display name and/or default value of a graph node  (default value very limited due to Attribute constraints)
+    /// </summary> 
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = false)]
     public class NodeParameter : Attribute
     {
@@ -113,6 +123,12 @@ namespace Gradientspace.NodeGraph
     }
 
 
+    /// <summary>
+    /// [NodeFunctionUIName("NodeName")]
+    /// 
+    /// This tag can be used on NodeFunctions to set the display name of the node 
+    /// to something other than the static function name
+    /// </summary> 
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public class NodeFunctionUIName : Attribute
     {
@@ -125,6 +141,19 @@ namespace Gradientspace.NodeGraph
 
 
 
+    //
+    // renaming/migration support
+    //
+
+
+
+
+    /// <summary>
+    /// [MappedLibraryName("old_name")]
+    /// 
+    /// Use when renaming a GraphNodeFunctionLibrary. Add this attribute, with the old library name,
+    /// and graph loader will map functions from the old library to the new library during loading.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
     public class MappedLibraryName : Attribute
     {
@@ -137,6 +166,12 @@ namespace Gradientspace.NodeGraph
     }
 
 
+    /// <summary>
+    /// [MappedNodeFunctionName("old_name")]
+    /// 
+    /// Use when renaming a NodeFunction. Add this attribute, with the old function  name,
+    /// and graph loader will map from old function to new function during loading
+    /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = false)]
     public class MappedNodeFunctionName : Attribute
     {
@@ -149,6 +184,12 @@ namespace Gradientspace.NodeGraph
     }
 
 
+    /// <summary>
+    /// [MappedNodeTypeName("old_name")]
+    /// 
+    /// Use when renaming an INode-derived Node class. Add this attribute, with the old function class,
+    /// and graph loader will map from old node to new node during loading
+    /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
     public class MappedNodeTypeName : Attribute
     {
@@ -162,6 +203,7 @@ namespace Gradientspace.NodeGraph
 
 
 
+    // currently unused...
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = false)]
     public class NodeArgumentInfo : Attribute
     {

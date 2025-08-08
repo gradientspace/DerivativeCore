@@ -18,7 +18,8 @@ namespace Gradientspace.NodeGraph
         public object? VariantData = null;
 
         //! instance of this node type, this is required to be able to (eg)
-        //! enumerate the parameters of a node...
+        //! enumerate the parameters of a node, which we need to be able to
+        //! do to (eg) do UI suggestions, etc
         public INode? NodeArchetype = null;
 
         public NodeType(Type classType)
