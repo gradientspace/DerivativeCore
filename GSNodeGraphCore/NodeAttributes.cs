@@ -61,17 +61,17 @@ namespace Gradientspace.NodeGraph
 
 
     /// <summary>
-    /// [GraphNodeFunctionLibrary("LibraryName")]
+    /// [NodeFunctionLibrary("LibraryName")]
     /// 
     /// Classes with this attribute will be inspected to see if they contain any NodeFunction's to expose as nodes.
     /// LibraryName will be used as the path to the nodes. 
     /// </summary> 
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-    public class GraphNodeFunctionLibrary : Attribute
+    public class NodeFunctionLibrary : Attribute
     {
         public string LibraryName { get; init; } = "";
 
-        public GraphNodeFunctionLibrary(string name)
+        public NodeFunctionLibrary(string name)
         {
             LibraryName = name;
         }
@@ -80,7 +80,7 @@ namespace Gradientspace.NodeGraph
     /// <summary>
     /// [NodeFunction]
     /// 
-    /// this attribute/tag indicates that a static function of a GraphNodeFunctionLibrary should
+    /// this attribute/tag indicates that a static function of a NodeFunctionLibrary should
     /// be exposed as a graph node
     /// </summary> 
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
@@ -149,17 +149,17 @@ namespace Gradientspace.NodeGraph
 
 
     /// <summary>
-    /// [MappedLibraryName("old_name")]
+    /// [MappedFunctionLibraryName("old_name")]
     /// 
-    /// Use when renaming a GraphNodeFunctionLibrary. Add this attribute, with the old library name,
+    /// Use when renaming a NodeFunctionLibrary. Add this attribute, with the old library name,
     /// and graph loader will map functions from the old library to the new library during loading.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
-    public class MappedLibraryName : Attribute
+    public class MappedFunctionLibraryName : Attribute
     {
         public string MappedName { get; init; } = "";
 
-        public MappedLibraryName(string mappedName)
+        public MappedFunctionLibraryName(string mappedName)
         {
             MappedName = mappedName;
         }
