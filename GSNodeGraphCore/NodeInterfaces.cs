@@ -66,14 +66,29 @@ namespace Gradientspace.NodeGraph
     }
 
 
+    public enum ENodeFlags
+    {
+        None = 0,
+
+        //! nodes that return this flag can be used in a non-sequence context
+        IsPure = 1,
+
+        //! force sequence pins to be enabled even if they are not necessary
+        EnableSequencePins = 1<<1
+    }
+
 
     //! minimal Node interface
     public interface INode
     {
         //! name of this node
         string GetNodeName();
+
         //! (optional) namespace for this node
         string? GetNodeNamespace() { return null; }
+
+        //! get flags for this node
+        ENodeFlags GetNodeFlags() { return ENodeFlags.None; }
 
         IEnumerable<INodeInputInfo> EnumerateInputs();
         IEnumerable<INodeOutputInfo> EnumerateOutputs();

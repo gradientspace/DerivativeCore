@@ -16,6 +16,7 @@ namespace Gradientspace.NodeGraph
         public string UICategory;
         public string Variant;
         public object? VariantData = null;
+        public ENodeFlags Flags = ENodeFlags.None;
 
         //! instance of this node type, this is required to be able to (eg)
         //! enumerate the parameters of a node, which we need to be able to

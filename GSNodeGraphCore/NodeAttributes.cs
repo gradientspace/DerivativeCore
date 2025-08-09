@@ -86,6 +86,7 @@ namespace Gradientspace.NodeGraph
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public class NodeFunction : Attribute
     {
+        public bool IsPure { get; init; } = false;
     }
 
     /// <summary>
