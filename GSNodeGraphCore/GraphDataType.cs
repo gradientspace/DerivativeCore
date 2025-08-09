@@ -49,7 +49,7 @@ namespace Gradientspace.NodeGraph
     public struct GraphDataType
     {
         //! graph data always has an underlying C# type - for data from other languages this will generally be 'object'...
-        public Type DataType { get; init; }
+        public Type CSType { get; init; }
 
         //! DataFormat enum is used to identify which underlying language a GraphDataType comes from
         public EGraphDataFormat DataFormat { get; init; }
@@ -69,7 +69,7 @@ namespace Gradientspace.NodeGraph
         public IExtendedGraphDataTypeInfo? ExtendedTypeInfo { get; init; }
 
         public GraphDataType() { 
-            DataType = typeof(object);
+            CSType = typeof(object);
             DataFormat = EGraphDataFormat.CSharp;
             IsDynamic = false;
             ExtendedType = null;
@@ -79,7 +79,7 @@ namespace Gradientspace.NodeGraph
         public GraphDataType(Type t, 
             EGraphDataFormat dataFormat = EGraphDataFormat.CSharp, 
             object? extendedType = null) { 
-            DataType = t;
+            CSType = t;
 			DataFormat = dataFormat;
 			IsDynamic = false;
 			ExtendedType = extendedType;
@@ -90,12 +90,12 @@ namespace Gradientspace.NodeGraph
 
 		public static GraphDataType MakeDynamic(Type baseType, IExtendedGraphDataTypeInfo? extendedInfo = null) 
         {
-            return new() { DataType = baseType, DataFormat = EGraphDataFormat.CSharp, ExtendedType = null, IsDynamic = true, ExtendedTypeInfo = extendedInfo };
+            return new() { CSType = baseType, DataFormat = EGraphDataFormat.CSharp, ExtendedType = null, IsDynamic = true, ExtendedTypeInfo = extendedInfo };
         }
 
 		public static GraphDataType MakeDynamic(Type baseType, EGraphDataFormat dataFormat, object? extendedType, IExtendedGraphDataTypeInfo? extendedInfo = null)
 		{
-			return new() { DataType = baseType, DataFormat = dataFormat, ExtendedType = extendedType, IsDynamic = true, ExtendedTypeInfo = extendedInfo };
+			return new() { CSType = baseType, DataFormat = dataFormat, ExtendedType = extendedType, IsDynamic = true, ExtendedTypeInfo = extendedInfo };
 		}
 
 		// IsCompatibleWith function that checks standard Type compatibility and also calls IExtendedGraphDataTypeInfo.IsCompatibleWith if available?
@@ -104,7 +104,7 @@ namespace Gradientspace.NodeGraph
         public readonly bool IsSameType(in GraphDataType other)
         {
             if (DataFormat != other.DataFormat) return false;
-            if (DataType != other.DataType) return false;
+            if (CSType != other.CSType) return false;
             if (ExtendedType != null)
             {
                 if (other.ExtendedType != null)
@@ -120,13 +120,13 @@ namespace Gradientspace.NodeGraph
 		public override readonly string ToString()
 		{
             if (DataFormat == EGraphDataFormat.CSharp)
-                return $"{DataType} [C#]";
+                return $"{CSType} [C#]";
             else if (DataFormat == EGraphDataFormat.Python)
-                return (ExtendedType != null) ? $"{ExtendedType.ToString()} [Python]" : $"{DataType} [Python]";
+                return (ExtendedType != null) ? $"{ExtendedType.ToString()} [Python]" : $"{CSType} [Python]";
 			else
                 return (ExtendedType != null) ?
-                    $"{DataType}:{ExtendedType.ToString()} ({DataFormat})" :
-                    $"{DataType}: ({DataFormat})";
+                    $"{CSType}:{ExtendedType.ToString()} ({DataFormat})" :
+                    $"{CSType}: ({DataFormat})";
 		}
 
 
