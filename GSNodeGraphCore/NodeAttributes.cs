@@ -87,6 +87,7 @@ namespace Gradientspace.NodeGraph
     public class NodeFunction : Attribute
     {
         public bool IsPure { get; init; } = false;
+        public string? ReturnName { get; init; } = null;
     }
 
     /// <summary>
@@ -101,6 +102,11 @@ namespace Gradientspace.NodeGraph
 
         public NodeReturnValue()
         {
+        }
+
+        public NodeReturnValue(string displayName)
+        {
+            DisplayName = displayName;
         }
     }
 
