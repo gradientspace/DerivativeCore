@@ -15,7 +15,10 @@ namespace Gradientspace.NodeGraph
         Hidden = 1<<1,
 
         //! hint to GUIs/editors that this pin's label should not be shown  (eg for constant values)
-        HiddenLabel = 1<<2
+        HiddenLabel = 1<<2,
+
+        //! An InOut Input is one where the input-pin data reference is returned on the output pin (eg a C# ref argument)
+        IsInOut = 1 << 3
     }
 
 
@@ -54,6 +57,7 @@ namespace Gradientspace.NodeGraph
         public GraphDataType DataType { get { return Input.GetDataType(); } }
         public bool IsNodeConstant { get { return (Input.GetInputFlags() & ENodeInputFlags.IsNodeConstant) != 0; } }
         public bool IsHidden { get { return (Input.GetInputFlags() & ENodeInputFlags.Hidden) != 0; } }
+        public bool IsInOut { get { return (Input.GetInputFlags() & ENodeInputFlags.IsInOut) != 0; } }
     }
 
     //! named wrapper around an INodeOutput
