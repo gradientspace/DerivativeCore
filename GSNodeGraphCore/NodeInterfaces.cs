@@ -18,7 +18,11 @@ namespace Gradientspace.NodeGraph
         HiddenLabel = 1<<2,
 
         //! An InOut Input is one where the input-pin data reference is returned on the output pin (eg a C# ref argument)
-        IsInOut = 1 << 3
+        IsInOut = 1 << 3,
+
+        //! If this flag is set, then the nodes GetConstantValue() result should not be serialized.
+        //! This should be set on any input pin where it's not guaranteed that the type is serializable.
+        ConstantIsTransient = 1 << 4
     }
 
 
