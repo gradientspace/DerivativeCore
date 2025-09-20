@@ -88,12 +88,14 @@ namespace Gradientspace.NodeGraph
     {
         public bool IsPure { get; init; } = false;
         public string? ReturnName { get; init; } = null;
+        public bool Hidden { get; init; } = false;      // hidden nodes are not shown in search
     }
 
     /// <summary>
+    /// *** DEPRECATED *** - use NodeFunction.ReturnName instead
     /// [NodeReturnValue(DisplayName = "Mesh")]
     /// 
-    /// Use to configure the name of the return value in NodeFunctions
+    /// Use to configure the name of the return value in NodeFunctions.
     /// </summary> 
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public class NodeReturnValue : Attribute
@@ -118,10 +120,18 @@ namespace Gradientspace.NodeGraph
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = false)]
     public class NodeParameter : Attribute
     {
+        // specifies which function argument this parameter will be applied to - required, and must be an exact string match
         public string ArgumentName { get; set; } = string.Empty;
 
+        // string that overrides display string for pin
         public string DisplayName { get; set; } = string.Empty;
+
+        // can be used for POD types (bool, int, float, etc), string, System.Type, Enum types
         public object? DefaultValue { get; set; } = null;
+
+        // default float and int arrays (eg for vectors)
+        public double[]? DefaultRealVec { get; set; } = null;
+        public int[]? DefaultIntVec { get; set; } = null;
 
         public NodeParameter(string argName)
         {

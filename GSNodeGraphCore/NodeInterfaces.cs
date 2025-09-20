@@ -82,7 +82,10 @@ namespace Gradientspace.NodeGraph
         IsPure = 1,
 
         //! force sequence pins to be enabled even if they are not necessary
-        EnableSequencePins = 1<<1
+        EnableSequencePins = 1<<1,
+
+        //! node should be hidden in search results / etc  (eg for deprecated nodes)
+        Hidden = 1 << 2
     }
 
 
