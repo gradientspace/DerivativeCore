@@ -14,14 +14,26 @@ namespace Gradientspace.NodeGraph
         public Type ClassType;
         public string UIName;
         public string UICategory;
+        public ENodeFlags Flags = ENodeFlags.None;
+
+        // Variant stores nested type info. Eg for a static library function node, the 
+        // ClassType is LibraryFunctionNode, and the GraphNamespace.NodeName for the function
+        // is stored in the Variant.
         public string Variant;
         public object? VariantData = null;
-        public ENodeFlags Flags = ENodeFlags.None;
+
+        // version number for this node
+        public NodeVersion Version = NodeVersion.Default;
+        // NodeType that this node is an older version of
+        public NodeType? VersionOf = null;
 
         //! instance of this node type, this is required to be able to (eg)
         //! enumerate the parameters of a node, which we need to be able to
         //! do to (eg) do UI suggestions, etc
         public INode? NodeArchetype = null;
+
+        //! return true if there is a newer version of this node
+        public bool IsOldVersion => (VersionOf != null);
 
         public NodeType(Type classType)
         {

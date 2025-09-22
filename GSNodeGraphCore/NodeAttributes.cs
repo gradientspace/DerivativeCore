@@ -89,6 +89,9 @@ namespace Gradientspace.NodeGraph
         public bool IsPure { get; init; } = false;
         public string? ReturnName { get; init; } = null;
         public bool Hidden { get; init; } = false;      // hidden nodes are not shown in search
+
+        public string Version { get; init; } = "1.0";
+        public string? VersionOf { get; init; } = null;
     }
 
     /// <summary>
