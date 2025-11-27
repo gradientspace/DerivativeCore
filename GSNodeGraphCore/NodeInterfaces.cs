@@ -45,11 +45,28 @@ namespace Gradientspace.NodeGraph
         void SetConstantValue(object value);
     }
 
+
+
+    public enum ENodeOutputFlags
+    {
+        None = 0,
+
+        //! hint to GUIs/editors that this pin's label should not be shown  (eg for constant values)
+        HiddenLabel = 1<<2,
+    }
+
+
     //! generic interface for an output from an INode
     public interface INodeOutput
     {
         GraphDataType GetDataType();
+
+        //! get flags for this output. This is optional and inputs may return ENodeOutputFlags.None
+        ENodeOutputFlags GetOutputFlags();
     }
+
+
+
 
     //! named wrapper around an INodeInput. The (name/input) mappings are meant to be stored by the INode,
     //! rather than the individual Inputs. 
