@@ -244,7 +244,20 @@ namespace Gradientspace.NodeGraph
         }
     }
 
- 
+
+
+    // interfaces for create/access variable nodes like CreateGlobalVariableNode/AccessVariableNode or CreateAliasNode/GetAliasNode
+    public interface IDefineVariableNode
+    {
+        string GetVariableNameInputName();
+        string GetVariableName();
+    }
+    public interface IAccessVariableNode
+    {
+        string GetVariableNameInputName();
+        string GetVariableName();
+    }
+
 
 }
 
