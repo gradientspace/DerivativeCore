@@ -136,6 +136,9 @@ namespace Gradientspace.NodeGraph
         public double[]? DefaultRealVec { get; set; } = null;
         public int[]? DefaultIntVec { get; set; } = null;
 
+        /// if true, this parameter is not required (eg it can be null). Alternative to nullable declaration in C# code (which doesn't work for single objects)
+        public bool IsOptional { get; set; } = false;
+
         public NodeParameter(string argName)
         {
             ArgumentName = argName;
